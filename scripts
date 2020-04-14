@@ -1,0 +1,1 @@
+docker build -t neuroteks/smart-privacy-home-office-nginx . && docker rm -f smart-privacy-home-office-nginx && docker run -it -p 80:80 --name smart-privacy-home-office-nginx neuroteks/smart-privacy-home-office-nginx
