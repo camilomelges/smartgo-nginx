@@ -4,7 +4,7 @@ docker build -t neuroteks/smart-privacy-home-office-database ~/projects/neurotek
 docker build -t neuroteks/smart-privacy-home-office-api ~/projects/neuroteks/SmartPrivacyHomeOfficeApi/ &&  docker push neuroteks/smart-privacy-home-office-api &&
 docker build -t neuroteks/smart-privacy-home-office-manager ~/projects/neuroteks/SmartPrivacyHomeOfficeWeb/ &&  docker push neuroteks/smart-privacy-home-office-manager &&
 docker build -t neuroteks/smart-privacy-home-office-employee ~/projects/neuroteks/SmartPrivacyHomeOfficeWebEmployee/ &&  docker push neuroteks/smart-privacy-home-office-employee &&
-docker build -t neuroteks/smart-privacy-home-office-nginx ~/projects/neuroteks/SmartPrivacyHomeOfficeNginx/ &&  docker push neuroteks/smart-privacy-home-office-nginx
+docker build -t neuroteks/smart-privacy-home-office-nginx ~/projects/neuroteks/SmartPrivacyHomeOfficeNginx/ && docker push neuroteks/smart-privacy-home-office-nginx
 
 docker pull neuroteks/smart-privacy-home-office-database &&
 docker pull neuroteks/smart-privacy-home-office-api &&
