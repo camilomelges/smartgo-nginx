@@ -12,8 +12,7 @@ docker pull neuroteks/smart-privacy-home-office-manager &&
 docker pull neuroteks/smart-privacy-home-office-employee &&
 docker pull neuroteks/smart-privacy-home-office-nginx
 
-docker network create -d bridge smart-privacy-home-office;
-
+docker network create -d bridge smart-privacy-home-office && 
 docker run -p 3306:3306 --network smart-privacy-home-office --name smart-privacy-home-office-database -d neuroteks/smart-privacy-home-office-database --default-authentication-plugin=mysql_native_password && 
 docker run -p 5000:5000 --network smart-privacy-home-office --name smart-privacy-home-office-api -d neuroteks/smart-privacy-home-office-api && 
 docker run -p 3000:80 --network smart-privacy-home-office --name smart-privacy-home-office-manager -d neuroteks/smart-privacy-home-office-manager && 
