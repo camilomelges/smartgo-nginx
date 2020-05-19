@@ -1,20 +1,34 @@
-docker build -t neuroteks/smart-privacy-home-office-nginx . && docker rm -f smart-privacy-home-office-nginx && docker run -it -p 80:80 --name smart-privacy-home-office-nginx neuroteks/smart-privacy-home-office-nginx
+docker build -t neuroteks/smartgo-office-nginx . && docker rm -f smartgo-office-nginx && docker run -it -p 80:80 --name smartgo-office-nginx neuroteks/smartgo-office-nginx
 
-docker build -t neuroteks/smart-privacy-home-office-database ~/projects/neuroteks/smart-privacy-home-office-database/ &&  docker push neuroteks/smart-privacy-home-office-database &&
-docker build -t neuroteks/smart-privacy-home-office-api ~/projects/neuroteks/SmartPrivacyHomeOfficeApi/ &&  docker push neuroteks/smart-privacy-home-office-api &&
-docker build -t neuroteks/smart-privacy-home-office-manager ~/projects/neuroteks/SmartPrivacyHomeOfficeWeb/ &&  docker push neuroteks/smart-privacy-home-office-manager &&
-docker build -t neuroteks/smart-privacy-home-office-employee ~/projects/neuroteks/SmartPrivacyHomeOfficeWebEmployee/ &&  docker push neuroteks/smart-privacy-home-office-employee &&
-docker build -t neuroteks/smart-privacy-home-office-nginx ~/projects/neuroteks/SmartPrivacyHomeOfficeNginx/ && docker push neuroteks/smart-privacy-home-office-nginx
+sudo certbot --nginx -d api.smartgo.ai
+sudo certbot --nginx -d manager.smartgo.ai
+sudo certbot --nginx -d employee.smartgo.ai
+l
+docker build -t neuroteks/smartgo-office-database ~/projects/neuroteks/smartgo-office-database/ && docker push neuroteks/smartgo-office-database &&
+docker build -t neuroteks/smartgo-office-api ~/projects/neuroteks/SmartPrivacyHomeOfficeApi/ && docker push neuroteks/smartgo-office-api &&
+docker build -t neuroteks/smartgo-office-manager ~/projects/neuroteks/SmartPrivacyHomeOfficeWeb/ && docker push neuroteks/smartgo-office-manager &&
+docker build -t neuroteks/smartgo-office-employee ~/projects/neuroteks/SmartPrivacyHomeOfficeWebEmployee/ && docker push neuroteks/smartgo-office-employee &&
+docker build -t neuroteks/smartgo-cv ~/projects/neuroteks/smartgocv/ && docker push neuroteks/smartgo-cv
 
-docker pull neuroteks/smart-privacy-home-office-database &&
-docker pull neuroteks/smart-privacy-home-office-api &&
-docker pull neuroteks/smart-privacy-home-office-manager &&
-docker pull neuroteks/smart-privacy-home-office-employee &&
-docker pull neuroteks/smart-privacy-home-office-nginx
+docker pull neuroteks/smartgo-office-database &&
+docker pull neuroteks/smartgo-office-api &&
+docker pull neuroteks/smartgo-office-manager &&
+docker pull neuroteks/smartgo-office-employee &&
+docker pull neuroteks/smartgo-cv
 
-docker network create -d bridge smart-privacy-home-office && 
-docker run -p 3306:3306 --network smart-privacy-home-office --name smart-privacy-home-office-database -d neuroteks/smart-privacy-home-office-database --default-authentication-plugin=mysql_native_password && 
-docker run -p 5000:5000 --network smart-privacy-home-office --name smart-privacy-home-office-api -d neuroteks/smart-privacy-home-office-api && 
-docker run -p 3000:80 --network smart-privacy-home-office --name smart-privacy-home-office-manager -d neuroteks/smart-privacy-home-office-manager && 
-docker run -p 3001:80 --network smart-privacy-home-office --name smart-privacy-home-office-employee -d neuroteks/smart-privacy-home-office-employee && 
-docker run -it -p 80:80 --network smart-privacy-home-office --name smart-privacy-home-office-nginx -d neuroteks/smart-privacy-home-office-nginx
+docker network create -d bridge smartgo-office && 
+docker run -p 3306:3306 --network smartgo-office --name smartgo-office-database -d neuroteks/smartgo-office-database --default-authentication-plugin=mysql_native_password && 
+docker run -p 5000:5000 --network smartgo-office --name smartgo-office-api -d neuroteks/smartgo-office-api && 
+docker run -p 3000:80 --network smartgo-office --name smartgo-office-manager -d neuroteks/smartgo-office-manager && 
+docker run -p 3001:80 --network smartgo-office --name smartgo-office-employee -d neuroteks/smartgo-office-employee && 
+docker run -p 5001:5001 --network smartgo-office --name smartgo-cv -d --restart=always neuroteks/smartgo-cv
+
+
+sudo scp -r etc/nginx/conf.d/* ubuntu@ip-172-26-5-92:etc/nginx/conf.d/
+
+
+docker build -t neuroteks/smartgo-cv ~/projects/neuroteks/smartgocv/ && docker push neuroteks/smartgo-cv
+&& docker run -p 5001:5001 --network smartgo-office --name smartgo-cv -d --restart=always neuroteks/smartgo-cv
+
+
+docker run -p 3001:80 --network smartgo-office --name smartgo-employee -d neuroteks/smartgo-employee
